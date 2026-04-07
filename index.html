@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FloorPlan Studio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>FloorPlan Studio</h1>
+      <p>Design your home in exact metric dimensions in 2D + 3D.</p>
+    </header>
+
+    <main>
+      <aside class="panel">
+        <section>
+          <h2>House Dimensions</h2>
+          <div class="form-grid">
+            <label>Width (m) <input id="houseWidth" type="number" min="1" step="0.1" value="12" /></label>
+            <label>Length (m) <input id="houseLength" type="number" min="1" step="0.1" value="10" /></label>
+            <label>Wall height (m) <input id="wallHeight" type="number" min="2" step="0.1" value="2.8" /></label>
+            <label>Wall thickness (m) <input id="wallThickness" type="number" min="0.05" step="0.01" value="0.2" /></label>
+          </div>
+          <div class="row">
+            <button id="applyDimensions">Apply Dimensions</button>
+            <button id="resetLayout">Reset Layout</button>
+          </div>
+          <p id="areaSummary">Area: 120.0 m²</p>
+        </section>
+
+        <section>
+          <h2>Blueprint Guide Image</h2>
+          <label class="upload">Upload Image
+            <input type="file" id="blueprintUpload" accept="image/*" />
+          </label>
+          <label>Opacity <input id="blueprintOpacity" type="range" min="0" max="1" step="0.05" value="0.35" /></label>
+        </section>
+
+        <section>
+          <h2>Interior Wall</h2>
+          <p class="hint">Coordinates are meters from top-left corner of house.</p>
+          <div class="form-grid">
+            <label>X1 <input id="wallX1" type="number" step="0.1" value="2" /></label>
+            <label>Y1 <input id="wallY1" type="number" step="0.1" value="2" /></label>
+            <label>X2 <input id="wallX2" type="number" step="0.1" value="8" /></label>
+            <label>Y2 <input id="wallY2" type="number" step="0.1" value="2" /></label>
+          </div>
+          <button id="addWall">Add Wall</button>
+        </section>
+
+        <section>
+          <h2>Furniture Library</h2>
+          <label>Category
+            <select id="categoryFilter"></select>
+          </label>
+          <label>Furniture
+            <select id="furnitureSelect"></select>
+          </label>
+          <div class="form-grid">
+            <label>X (m) <input id="furnX" type="number" step="0.1" value="1" /></label>
+            <label>Y (m) <input id="furnY" type="number" step="0.1" value="1" /></label>
+            <label>Rotation (°) <input id="furnRot" type="number" step="1" value="0" /></label>
+          </div>
+          <button id="addFurniture">Place Furniture</button>
+          <details>
+            <summary>Add Custom Furniture Item</summary>
+            <div class="form-grid">
+              <label>Name <input id="customName" type="text" /></label>
+              <label>Category <input id="customCategory" type="text" value="Custom" /></label>
+              <label>Width (m) <input id="customWidth" type="number" step="0.01" /></label>
+              <label>Depth (m) <input id="customDepth" type="number" step="0.01" /></label>
+              <label>Height (m) <input id="customHeight" type="number" step="0.01" /></label>
+              <label>Wall-mounted <input id="customWallMounted" type="checkbox" /></label>
+            </div>
+            <button id="addCustomFurniture">Add to Library</button>
+          </details>
+        </section>
+
+        <section>
+          <h2>Placed Objects</h2>
+          <ul id="placedList"></ul>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <div class="tabs">
+          <button class="tab active" data-view="view2d">2D Plan</button>
+          <button class="tab" data-view="view3d">3D View</button>
+        </div>
+        <div id="view2d" class="view active">
+          <canvas id="planCanvas" width="1200" height="800"></canvas>
+        </div>
+        <div id="view3d" class="view">
+          <div id="threeContainer"></div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
